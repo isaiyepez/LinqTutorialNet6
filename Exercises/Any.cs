@@ -12,7 +12,7 @@ namespace Exercises
         public static bool IsAnyNumberNegative(IEnumerable<int> numbers)
         {
             //TODO you code goes here
-            throw new NotImplementedException();
+            return numbers.Any(number => number < 0);
         }
 
         //Coding Exercise 2
@@ -21,7 +21,7 @@ namespace Exercises
         public static bool AreThereAnyBigCats(IEnumerable<Pet> pets)
         {
             //TODO you code goes here
-            throw new NotImplementedException();
+            return pets.Any(pet => pet.Weight > 2 && pet.PetType == PetType.Cat);
         }
 
         //Refactoring challenge
@@ -29,7 +29,20 @@ namespace Exercises
         public static bool AreAllNamesValid_Refactored(string[] names)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            //My solution
+            
+            //if (names.Any(name => name.Length < 2 ||
+            //               name.Length > 25 ||
+            //                char.IsLower(name[0])))
+            //{
+            //    return false;
+            //}
+            //    return true;
+
+            //Better from the tutorial
+            return !names.Any(name =>
+            char.IsLower(name[0]) || name.Length < 2 || name.Length > 25);
+
         }
 
         //do not modify this method
