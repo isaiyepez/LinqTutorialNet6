@@ -1,5 +1,7 @@
 ﻿using Exercises;
 using NUnit.Framework;
+using System.Diagnostics;
+
 namespace ExercisesTests
 {
     [TestFixture]
@@ -8,6 +10,7 @@ namespace ExercisesTests
         [TestFixture]
         public class FirstTestSuite
         {
+            [Test]
             public void NameIsPresent()
             {
                 var words = new[] { "abc", "K", "MArtin", "John", "Jack", "bbb" };
@@ -17,7 +20,7 @@ namespace ExercisesTests
 
             [Test]
             public void NameIsNotPresent()
-            {
+            {                
                 var words = new[] { "abc", "K", "bbb" };
                 var result = FirstLast.FindFirstNameInTheCollection(words);
                 Assert.AreEqual(null, result, $"No word in the collection (abc, K, bbb) is a valid name");

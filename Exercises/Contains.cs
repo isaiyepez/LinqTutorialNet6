@@ -55,9 +55,8 @@ namespace Exercises
          */
         public static int CountFriendsOf(Friend friend, IEnumerable<Person> people)
         {
-            //TODO your code goes here
-            var friend2 = friend;
-            return people.Contains(friend);
+            //TODO your code goes here            
+            return people.Count(p => p.Friends.Contains(friend));
         }
 
         //Refactoring challenge
@@ -66,7 +65,7 @@ namespace Exercises
             IEnumerable<string> words, IEnumerable<string> bannedWords)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return words.Any(word => bannedWords.Contains(word));
         }
 
         //do not modify this method

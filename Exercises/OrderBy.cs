@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Utilities;
 
 namespace Exercises
 {
@@ -17,7 +18,8 @@ namespace Exercises
             IEnumerable<string> words)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return words.OrderBy(w => w.Length).Reverse();
+            //OR words.OrderByDescending(w => w.Length);
         }
 
         //Coding Exercise 2
@@ -33,7 +35,14 @@ namespace Exercises
             IEnumerable<int> numbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            var evenNumbers = numbers.Where(n => n % 2 == 0);
+           
+            var oddNumbers = numbers.Where(oddN=> oddN % 2 != 0);
+            oddNumbers = oddNumbers.Reverse();
+
+            IEnumerable<int> results = evenNumbers.OrderByDescending(n => n);
+            
+            return results.Concat(oddNumbers.OrderByDescending(n => n)).ToList();
         }
 
         //Refactoring challenge
@@ -41,7 +50,7 @@ namespace Exercises
         public static IEnumerable<DateTime> OrderByMonth_Refactored(List<DateTime> dates)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return dates.OrderBy(dt => dt.Month);
         }
 
         //do not modify this method
