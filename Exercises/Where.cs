@@ -30,7 +30,8 @@ namespace Exercises
             IEnumerable<Student> students)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            //Review Syntax
+            return students.Where(student => (student.Marks.Any() ? student.Marks.Average() : 0 ) > 4.6f);
         }
 
         //Coding Exercise 2
@@ -55,8 +56,7 @@ namespace Exercises
         public static IEnumerable<string> GetProperlyIndexedWords(
             IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return words.Where((word, index) => word.StartsWith($"{index + 1 }"));
         }
 
         //Refactoring challenge
