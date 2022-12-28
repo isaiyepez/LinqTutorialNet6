@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Exercises
 {
@@ -11,8 +12,11 @@ namespace Exercises
         //If no integer is present, it shall return null.
         public static int? GetTheFirstInteger(IEnumerable<object> objects)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            //TODO your code goes here           
+
+            return objects
+                .OfType<int?>()
+                .FirstOrDefault();
         }
 
         //Coding Exercise 2
@@ -21,16 +25,15 @@ namespace Exercises
         //If there is no string at all in this collection, the result should be true.
         public static bool AreAllStringsUpperCase(IEnumerable<object> objects)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return (objects.OfType<string>()
+                    .All(obj => obj.ToUpper() == obj));
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static DateTime? GetTheLatestDate_Refactored(IEnumerable<object> objects)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return objects.OfType<DateTime?>().Max();                
         }
 
         //do not modify this method

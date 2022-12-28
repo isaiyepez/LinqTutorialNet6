@@ -65,7 +65,7 @@ namespace Exercises
             IEnumerable<Person> people)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return people.Where(owner => owner.Pets.Count(pet => pet.PetType == PetType.Fish) > 1);
         }
 
         //do not modify this method

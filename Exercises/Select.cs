@@ -25,8 +25,11 @@ namespace Exercises
          */
         public static IEnumerable<int> GetNumbers(IEnumerable<object> objects)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var firstList = objects.OfType<int>();
+            var secondList = objects.OfType<string>();
+            var thirdList = secondList.Where(word => word.All(c => char.IsNumber(c)));
+            var thirdListToInt = thirdList.Select(int.Parse).ToList();
+            return firstList.Union(thirdListToInt).OrderBy(n => n);
         }
 
         //Coding Exercise 2
@@ -53,16 +56,41 @@ namespace Exercises
          */
         public static IEnumerable<Person> PeopleFromString(string input)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var result = new List<Person>();
+            var personStringList = input.Split(';').ToList();
+           
+
+            foreach (var person in personStringList) { 
+                var arrayData = person.Split(",");
+                DateTime date;
+
+                Person personToParse = new Person();
+
+                if (DateTime.TryParse(arrayData[1], out date))
+                {
+                    var arrName = arrayData[0].Split(" ");
+                    personToParse.FirstName= arrName[0];
+                    personToParse.LastName= arrName[1];
+                    personToParse.DateOfBirth= date;
+
+                    result.Append(personToParse);
+                }
+            }
+
+            return result;
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static TimeSpan TotalDurationOfSongs_Refactored(string allSongsDuration)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(allSongsDuration) ?
+                new TimeSpan() :
+                TimeSpan.FromSeconds(
+                allSongsDuration.Split(',')
+                .Select(songDurationAsString => TimeSpan.ParseExact(
+                    songDurationAsString, @"m\:ss", null))
+                .Sum(timeSpan => timeSpan.TotalSeconds));
         }
 
         //do not modify this method

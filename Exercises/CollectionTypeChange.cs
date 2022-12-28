@@ -25,9 +25,17 @@ namespace Exercises
          */
         public static Dictionary<string, int?> ParseToNumbersAndStoreInDictionary(
             IEnumerable<string> words)
-        {
-            //TODO your code goes here
-            throw new NotImplementedException();
+        {            
+           
+                  return words.Distinct().ToDictionary(
+                 word => word,
+                 word => {
+                     int parsingResult;
+
+                     return int.TryParse(word, out parsingResult) ?
+                     parsingResult :
+                     (int?)null;
+                 });
         }
 
         //Coding Exercise 2
@@ -45,8 +53,9 @@ namespace Exercises
         public static ILookup<bool, int> CreateLookupByDivisibilityBy2(
             IEnumerable<int> input)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return input.ToLookup(
+                (num => num % 2 == 0),
+                (num => num) );
         }
 
         //Refactoring challenge
@@ -55,8 +64,12 @@ namespace Exercises
              GetStudentsAverageMarks_Refactored(
                  IEnumerable<Student> students)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return students.ToDictionary(
+                (student => $"{student.FirstName} " +
+                    $"{student.LastName} born on" +
+                    $" {student.DateOfBirth.ToString("d")}"),
+                (student => student.Marks.Count() == 0 ? 0 : student.Marks.Average())
+                );
         }
 
         //do not modify this method

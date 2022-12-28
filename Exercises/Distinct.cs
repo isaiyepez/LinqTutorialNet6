@@ -18,8 +18,7 @@ namespace Exercises
          */
         public static bool AreAllUnique<T>(IEnumerable<T> collection)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return (collection.Count() == collection.Distinct().Count());
         }
 
         //Coding Exercise 2
@@ -43,9 +42,11 @@ namespace Exercises
          */
         public static IEnumerable<T> GetCollectionWithMostDuplicates<T>(
             IEnumerable<IEnumerable<T>> collections)
-        {
-            //TODO your code goes here
-            throw new NotImplementedException();
+        {            
+            return collections
+           .OrderBy(collection => collection.Count() - collection.Distinct().Count())
+           .ThenByDescending(collection => collection.Count())
+           .LastOrDefault();
         }
 
         //Refactoring challenge
@@ -54,7 +55,7 @@ namespace Exercises
             IEnumerable<string> words)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return words.Distinct().Where(word => word.Length < 5);
         }
 
         //do not modify this method
