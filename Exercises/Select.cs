@@ -73,7 +73,7 @@ namespace Exercises
                     personToParse.LastName= arrName[1];
                     personToParse.DateOfBirth= date;
 
-                    result.Append(personToParse);
+                    result.Add(personToParse);
                 }
             }
 

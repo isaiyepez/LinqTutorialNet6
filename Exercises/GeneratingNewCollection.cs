@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,9 +29,11 @@ namespace Exercises
         public static Dictionary<int, string> NewYearsEvesSince(
             int initialYear, int yearsCount)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
-        }
+            return
+            Enumerable.Range(initialYear, yearsCount)
+                .ToDictionary(year => year,
+                year => new DateTime(year, 12, 31).DayOfWeek.ToString());
+        }       
 
         //Coding Exercise 2
         /*
@@ -51,16 +54,31 @@ namespace Exercises
          */
         public static string BuildTree(int levels)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return string.Join(
+                "\n",
+                Enumerable.Range(1, levels)
+                .Select(
+                    level =>
+                    string.Join("", Enumerable.Repeat("*", level))
+                    )
+                );
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static IEnumerable<string> DoubleLetters_Refactored(int countOfLetters)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+
+            var counter = (countOfLetters > 26 ? 26 : countOfLetters);
+
+            var collectionOfLetters = Enumerable.Range('A', counter)
+                .Select(number => (char)number);
+
+            return collectionOfLetters.SelectMany(
+                firstChar => collectionOfLetters, (firstChar, secondChar) =>
+                $"{firstChar}{secondChar}"
+                );
+             
         }
 
         //do not modify this method
