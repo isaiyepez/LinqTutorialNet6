@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace Exercises
 {
@@ -38,8 +39,29 @@ namespace Exercises
              IEnumerable<Person> people,
              IEnumerable<House> houses)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return people.GroupJoin(
+                houses,
+                person => person.Id,
+                house => house.OwnerId,
+                (person, house) => new
+                {
+                    Owner = person,
+                    OwnerHouses = house
+                })           
+                .SelectMany(personHouses => personHouses.OwnerHouses.DefaultIfEmpty(),
+                (ownerHouses, singleHouse) =>
+                $"Person: {ownerHouses.Owner} owns {GetHouseNameOrDefault(singleHouse)}");
+             
+        }
+
+        private static string GetHouseNameOrDefault(House house)
+        {
+            if (house == null)
+            {
+                return "no house";
+            }
+            
+            return house.Adderss;
         }
 
         //Coding Exercise 2
@@ -86,8 +108,25 @@ namespace Exercises
             IEnumerable<Item> items,
             IEnumerable<Order> orders)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+
+            return orders.Join(
+                customers,
+                order => order.CustomerId,
+                customer => customer.Id,
+                (ord, client) => new
+                {
+                    Order = ord,
+                    Customer = client
+                })
+                .Join(
+                items,
+                orderClientPair => orderClientPair.Order.ItemId,
+                item => item.Id,
+                (orderClientPair, itemOrder) =>
+                $"Customer: {orderClientPair.Customer.Name}," +
+                $" Item: {itemOrder.Name}," +
+                $" Count: {orderClientPair.Order.Count}");
+           
         }
 
         //Refactoring challenge
@@ -95,9 +134,21 @@ namespace Exercises
         public static Dictionary<House, Person> GetHousesData_Refactored(
             IEnumerable<Person> people,
             IEnumerable<House> houses)
-        {
-            //TODO your code goes here
-            throw new NotImplementedException();
+        {           
+
+            var PairedValues = people.Join(
+                houses,
+                pers => pers.Id,
+                hous => hous.OwnerId,
+                (person, house) =>
+                new
+                {
+                    Person = person,
+                    House = house
+                });
+
+            return PairedValues.ToDictionary(pair => pair.House, pair => pair.Person);
+            
         }
 
         //do not modify this method

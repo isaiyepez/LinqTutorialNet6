@@ -23,9 +23,10 @@ namespace Exercises
         public static int CountCommonWords(
             IEnumerable<string> words1,
             IEnumerable<string> words2)
-        {
-            //TODO your code goes here
-            throw new NotImplementedException();
+        {            
+           return words1.Select(word => word.ToUpper())
+                .Intersect(words2.Select(word2 => word2.ToUpper()))
+                .Count();
         }
 
         //Coding Exercise 2
@@ -45,8 +46,9 @@ namespace Exercises
             IEnumerable<int> numbers1,
             IEnumerable<int> numbers2)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return numbers1.Concat(numbers2)
+                .Except(numbers2.Intersect(numbers1))
+                .OrderBy(number=> number);
         }
 
         //Refactoring challenge
@@ -55,8 +57,26 @@ namespace Exercises
             GetRoutesInfo_Refactored(
                 Route route1, Route route2)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            List<string> routes = new();
+            var sharedPoints = route1.RoutePoints.Intersect(route2.RoutePoints);
+            var UnsharedPoints = route1.RoutePoints.Except(route2.RoutePoints)
+                .Concat(route2.RoutePoints.Except(route1.RoutePoints));            
+
+            foreach ( var route in sharedPoints )
+            {
+                routes.Add($"Shared point " +
+                            $"{route.Name}" +
+                            $" at {route.Point}");
+            }
+
+            foreach (var route in UnsharedPoints)
+            {
+                routes.Add($"Unshared point " +
+                            $"{route.Name}" +
+                            $" at {route.Point}");
+            }
+
+            return routes;
         }
 
         //do not modify this method
