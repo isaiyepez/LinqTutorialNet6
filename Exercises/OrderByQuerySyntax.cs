@@ -25,8 +25,9 @@ namespace Exercises
             OrderFromLongestToShortest(
                 IEnumerable<TimeSpan> timeSpans)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+          return from ts in timeSpans
+                 orderby ts descending
+                 select ts;
         }
 
         //Coding Exercise 2
@@ -54,8 +55,9 @@ namespace Exercises
         public static IEnumerable<Point> OrderPoints(
              IEnumerable<Point> points)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from point in points
+                   orderby point.X, point.Y
+                   select point;
         }
 
         //Refactoring challenge
@@ -64,8 +66,9 @@ namespace Exercises
             OrderDatesByDayOfWeek_Refactored(
                 IEnumerable<DateTime> dates)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from date in dates
+                   orderby date.DayOfWeek
+                   select date;
         }
 
         //do not modify this method

@@ -37,8 +37,18 @@ namespace Exercises
             IEnumerable<int> months,
             IEnumerable<int> days)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var zipMonthDay = months.Zip(days);
+
+            var zipYears = zipMonthDay.Zip(years).OrderBy(yr => yr.First);
+
+            var results = zipYears.Select(
+                bigTouple => 
+                new DateTime(
+                bigTouple.Second,
+                bigTouple.First.First,
+                bigTouple.First.Second)).OrderBy(dt => dt);
+
+            return results;
         }
 
         //Coding Exercise 2
@@ -62,16 +72,26 @@ namespace Exercises
             GetDaysDifferencesBetweenDates(
                 IEnumerable<DateTime> dates)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var zippedDates = dates.Zip(
+                dates.Skip(1),
+                (date1, date2) =>
+                $"It's been {(date2 -date1).TotalDays} days between {date1.ToString("yyyy-MM-dd") } and {date2.ToString("yyyy-MM-dd")}"
+                );
+
+            return zippedDates;
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static IEnumerable<string> MakeList_Refactored(IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+           var list = Enumerable.Range('A', words.Count()).Select(letter => (char)letter);
+            
+           var res = words.Zip(list,
+               (word, myChar) => $"{myChar}) {word}");
+
+            return res;
+                
         }
 
         //do not modify this method

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Exercises
 {
@@ -24,8 +25,10 @@ namespace Exercises
         public static IEnumerable<Person> GetBornAfter(
            int year, IEnumerable<Person> people)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from person in people
+                   where person.DateOfBirth.Year > year
+                   select person;
+                   
         }
 
         //Coding Exercise 2
@@ -49,8 +52,11 @@ namespace Exercises
            GetStudentsWhoNeedToStudyMore(
                IEnumerable<Student> students)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from student in students
+                   where !student.Marks.Any() ||
+                    student.Marks.Average() < 3
+                   select student;
+                    
         }
 
         //Refactoring challenge
@@ -59,8 +65,11 @@ namespace Exercises
                  string substring,
                  IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from word in words
+                   where word.Contains(substring)
+                   orderby word
+                   select word;
+                   
         }
 
         //do not modify this method

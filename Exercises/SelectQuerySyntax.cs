@@ -22,8 +22,8 @@ namespace Exercises
         public static IEnumerable<string>
             GetAbsoluteValuesInfo(IEnumerable<int> numbers)
         {
-            //  TODO your code goes here
-            throw new NotImplementedException();
+            return from num in numbers
+                   select $"|{num}|={Math.Abs(num)}";
         }
 
         //Coding Exercise 2
@@ -63,8 +63,8 @@ namespace Exercises
          */
         public static IEnumerable<string> GetShortAddresses(IEnumerable<House> houses)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return from house in houses
+                   select (house.Address.Contains(",") ? house.Address.Split(", ")[1] : house.Address);
         }
 
         //Refactoring Challenge
@@ -72,8 +72,17 @@ namespace Exercises
         public static string GetBestStudentInfo_Refactored(
             IEnumerable<Student> students)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            if (!students.Any()) return null;
+
+            var bestMark = from student in students
+                           select (student.Marks.Any() ? student.Marks.Max() : 0);
+
+            var bestStudent = from student in students
+                              where student.Marks.Contains(bestMark.Max())
+                              select $"Best mark was earned by {student.Name} and it is {bestMark.Max()}"; ;
+
+            return bestStudent.FirstOrDefault();
+
         }
 
         //do not modify this method

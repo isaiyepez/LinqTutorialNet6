@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Exercises
 {
@@ -20,8 +21,12 @@ namespace Exercises
          */
         public static IEnumerable<string> GroupByFirstDigit(IEnumerable<int> numbers)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var groupOfValues = from number in numbers
+                                let firstNum = number.ToString().FirstOrDefault()
+                                let strNum = number.ToString()
+                                group strNum by firstNum into grouping
+                                select $"FirstDigit: {grouping.Key}, numbers: {string.Join(",", from num in grouping select num)}";
+            return groupOfValues;
         }
 
         //Coding Exercise 2
@@ -48,8 +53,16 @@ namespace Exercises
         public static Dictionary<DayOfWeek, DateTime> GroupByDayOfWeek(
             IEnumerable<DateTime> dates)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var group = (from date in dates
+                         orderby date
+                         group date by date.DayOfWeek into grouping
+                         select grouping)
+                        .ToDictionary(
+                        grouping => grouping.Key,
+                        grouping => grouping.Last());
+
+            return group;
+
         }
 
         //Refactoring challenge
@@ -57,8 +70,14 @@ namespace Exercises
         public static IEnumerable<string> GetOwnersWithMultipleHouses_Refactored(
             IEnumerable<House> houses)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var ownersHouses = from house in houses       
+                               group house by house.OwnerId 
+                               into groupHouses
+                               where groupHouses.Count() > 1
+                               select $"Owner with ID {groupHouses.Key} " +
+                                        $"owns houses: " +
+                                        $"{string.Join(", ", from home in groupHouses select home)}";
+            return ownersHouses;
         }
 
         //do not modify this method
